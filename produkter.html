@@ -155,7 +155,6 @@
     </p>
     <img src="Brasalåda fast rätt.png" 
          alt="FastFire Brasa produktbild" class="product-image">
-    <div id="paypal-button-container-1"></div>
   </div>
 
   <div class="product">
@@ -167,7 +166,6 @@
     </p>
     <img src="Stormlåda.png" 
          alt="FastFire Inferno produktbild" class="product-image">
-    <div id="paypal-button-container-3"></div>
   </div>
 
   <div class="product">
@@ -176,7 +174,6 @@
     <p class="product-description">
       Innehåll:
       Refillpåse med sågspån och stearin för lång brinntid
-    <div id="paypal-button-container-2"></div>
   </div>
 
 
@@ -187,58 +184,9 @@
     <p>&copy; 2025 FastFireUF | Kontakt: fastfireuf@gmail.com</p>
   </footer>
 
-  <!-- PAYPAL SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AXojkgza7lqs5fIeCGeQ5mxwG0TAdZMlIwJ52ecjjVSyIDrN0M9hgpgz4f6lFahnLEZjgNy9ispDZuid&currency=SEK&enable-funding=card"></script>
-
-  <!-- PAYPAL SCRIPT -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-      const products = document.querySelectorAll('.product');
-
-      products.forEach((product, index) => {
-        const name = product.querySelector('.product-name').textContent.trim();
-        const priceText = product.querySelector('.product-price').textContent.trim();
-        const price = parseFloat(priceText.replace(/[^\d.,]/g, '').replace(',', '.'));
-        const containerId = `#paypal-button-container-${index + 1}`;
-
-        paypal.Buttons({
-          style: {
-            layout: 'vertical',
-            color: 'gold',
-            shape: 'rect',
-            label: 'paypal'
-          },
-          createOrder: function(data, actions) {
-            return actions.order.create({
-              purchase_units: [{
-                description: name,
-                amount: {
-                  currency_code: "SEK",
-                  value: price.toFixed(2)
-                }
-              }],
-              application_context: {
-                shipping_preference: "GET_FROM_FILE"
-              }
-            });
-          },
-          onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-              alert('Tack ' + details.payer.name.given_name + '! Din beställning av ' + name + ' är mottagen.');
-            });
-          },
-          onError: function(err) {
-            console.error("PayPal-fel:", err);
-          }
-        }).render(containerId);
-      });
-
-    });
-  </script>
-
 </body>
 </html>
+
 
 
 
